@@ -1,0 +1,9 @@
+{
+  "name": "agent42",
+  "version": "0.0.1",
+  "description": "a build helper tool",
+  "main": "index.js",
+  "author": "Rodrigo Silveira",
+  "license": "MIT",
+  "private": false
+}
