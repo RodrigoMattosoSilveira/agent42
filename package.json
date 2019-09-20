@@ -1,6 +1,6 @@
 {
   "name": "@rmstek/agent42",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A build helper tool",
   "author": {
     "name": "Rodrigo Silveira",
@@ -12,6 +12,7 @@
       "type": "git",
       "url": "https://github.com/RodrigoMattosoSilveira/agent42.git"
   },
+  "main": "./bin/agent42",
   "publishConfig": {
       "access": "public"
   },
