@@ -1,26 +1,65 @@
 #!/bin/bash
 
-# Usage
-# agent42 function arg-2 [, arg3]
+# agent42 Hosts build logic
 
-source ./feature
-source ./master
-source ./tag.sh
+# Usage
+# It must be executed from the project's root folder
+#   agent42 $1 $2 [, $3]
+#     $1 is the function type
+#     See functions bellow for their arguments
+
+# This works only when running from the same folder!??
+# source feature
+# source master
+# source tag.sh
 
 #set -ev
 echo "agent42 - function: "$1
 case  $1 in
   master)
-    master $2
-    exit $?
+    # $2 the branch being built
+    # echo "master - branch: "$2
+    if [[ $2 = master ]]; then
+      echo "✅ Branch is master"
+      exit 0
+    else
+      echo "🚫 Branch $2 is not master"
+      exit 1
+    fi
     ;;
   feature)
-    feature $2
-    exit $?
+    # $2 the package.json version
+    # echo "feature - version: "$2
+    regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
+    if [[ $2 =~ $regex ]]; then
+      echo "✅ Version $2 is a feature branch version"
+      exit 0
+    else
+      echo "🚫 Version $2 is not a feature branch version"
+      exit 1
+    fi
     ;;
   tag)
-    tag $2 $3
-    exit $?
+    # $2 whether this is a pull request; 0 is not, 1 is;
+    # $3 the package.json version
+    # echo "tag - pull_request: "$2
+    # echo "tag - package_version: "$3
+    if [[ $2 -eq false ]]; then
+      echo "✅ Not a pull request build"
+      exit 0;
+    fi
+    #package_version=`npx -c 'echo "$npm_package_version"'`
+    changelog_version=`sed -nE 's/## \[([0-9]+(\.[0-9]+)+)\]( +- +[0-9]+-[0-9]+-[0-9]+)?/\1/p' CHANGELOG.md | head -n 1`
+    if [[ $3 != ${changelog_version} ]]; then
+        echo "🚫 Versions in package.json ($3) and CHANGELOG.md (${changelog_version}) are different"
+        exit 1
+    fi
+    if git ls-remote -q --tags | grep -q "v$3$"; then
+        echo "🚫 Tag already exists for version $2"
+        exit 2
+    fi
+    echo "✅ Pull request introduces version $3"
+    exit 0;
     ;;
   *)
     echo "agent42 - Invalid function: "$1
