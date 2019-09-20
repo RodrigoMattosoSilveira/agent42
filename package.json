@@ -4,5 +4,8 @@
   "description": "A build helper tool",
   "author": "Rodrigo Silveira",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "publishConfig": {
+      "access": "public"
+  }
 }
