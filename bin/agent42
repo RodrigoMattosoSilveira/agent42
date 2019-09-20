@@ -50,11 +50,13 @@ case  $1 in
     fi
     #package_version=`npx -c 'echo "$npm_package_version"'`
     changelog_version=`sed -nE 's/## \[([0-9]+(\.[0-9]+)+)\]( +- +[0-9]+-[0-9]+-[0-9]+)?/\1/p' CHANGELOG.md | head -n 1`
+    # echo "agent42 tag changelog_version: "${changelog_version}
     if [[ $3 != ${changelog_version} ]]; then
         echo "🚫 Versions in package.json ($3) and CHANGELOG.md (${changelog_version}) are different"
         exit 1
     fi
-    if git ls-remote -q --tags | grep -q "v$3$"; then
+    TAG="v"$3
+    if git ls-remote -q --tags | grep -q $TAG; then
         echo "🚫 Tag already exists for version $2"
         exit 2
     fi
