@@ -5,5 +5,11 @@
 
 master() {
   echo "master - branch: "$1
-  return 0
+  if [[ $1 = master ]]; then
+    echo "✅ Branch is master"
+    return 0
+  else
+    echo "🚫 Branch $1 is not master"
+    return 1
+  fi
 }

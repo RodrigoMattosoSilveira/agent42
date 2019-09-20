@@ -12,14 +12,18 @@ echo "agent42 - function: "$1
 case  $1 in
   master)
     master $2
+    return $?
     ;;
   feature)
     feature $2
+    return $?
     ;;
   tag)
     tag $2 $3
+    return $?
     ;;
   * )
     echo "agent42 - Invalid function: "$1
+    return 1
     ;;
 esac
