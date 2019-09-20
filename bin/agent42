@@ -57,7 +57,7 @@ case  $1 in
     fi
     TAG="v"$3
     if git ls-remote -q --tags | grep -q $TAG; then
-        echo "🚫 Tag already exists for version $2"
+        echo "🚫 Tag already exists for version $3"
         exit 2
     fi
     echo "✅ Pull request introduces version $3"

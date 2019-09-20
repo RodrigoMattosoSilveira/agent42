@@ -29,9 +29,14 @@ test $? -eq 1 && echo "✅ pass tag "$VERSION "does not match CHANGELOG" || echo
 PULL_REQUEST=42
 VERSION=0.0.1
 ./bin/agent42 tag $PULL_REQUEST $VERSION  > /dev/null
-test $? -eq 3 && echo "✅ pass tag v"$VERSION "already exists for version" || echo "🚫 fail tag v"$VERSION "does not exists for version"
+test $? -eq 2 && echo "✅ pass tag v"$VERSION "already exists for version" || echo "🚫 fail tag v"$VERSION "does not exists for version"
 
-# PULL_REQUEST=1
-# VERSION="0.0.1"
-# ./bin/agent42 tag $PULL_REQUEST $VERSION  > /dev/null
-# test $? -eq 3 && echo "✅ pass tag "$VERSION "does not match CHANGELOG" || echo "🚫 fail tag "$VERSION "matches CHANGELOG"
+rm -rf CHANGELOG.md.sav
+mv CHANGELOG.md CHANGELOG.md.sav
+cp spec/CHANGELOG.md.test CHANGELOG.md
+PULL_REQUEST=42
+VERSION=0.0.2
+./bin/agent42 tag $PULL_REQUEST $VERSION  > /dev/null
+test $? -eq 0 && echo "✅ pass tag Pull request introduces version v$VERSION" || echo "🚫 fail tag Pull request did not introduce version v$VERSIO"
+rm -rf CHANGELOG.md
+mv CHANGELOG.md.sav CHANGELOG.md
