@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Usage
-# master branch
+# tag pull_request (Y/N) tag
 
 tag() {
-  echo "tag - tag: "$1
+  echo "tag - pull_request: "$1
+  echo "tag - tag: "$2
   return 0
 }

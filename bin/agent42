@@ -7,17 +7,17 @@ source ./feature
 source ./master
 source ./tag.sh
 
-set -ev
+#set -ev
 echo "agent42 - function: "$1
 case  $1 in
   master)
-    master test
+    master $2
     ;;
   feature)
-    feature test
+    feature $2
     ;;
   tag)
-    tag test
+    tag $2 $3
     ;;
   * )
     echo "agent42 - Invalid function: "$1
