@@ -2,10 +2,21 @@
   "name": "@rmstek/agent42",
   "version": "0.0.1",
   "description": "A build helper tool",
-  "author": "Rodrigo Silveira",
+  "author": {
+    "name": "Rodrigo Silveira",
+    "email": "r3850365@gmail.com"
+  },
   "license": "MIT",
   "private": false,
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/RodrigoMattosoSilveira/agent42.git"
+  },
   "publishConfig": {
       "access": "public"
+  },
+  "scripts": {
+    "publish": "yarn publish",
+    "test": "./spec/agent42.spec.sh"
   }
 }
