@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Usage
+# agent42 function arg-2 [, arg3]
+
+source ./feature
+source ./master
+source ./tag.sh
+
+set -ev
+echo "agent42 - function: "$1
+case  $1 in
+  master)
+    master test
+    ;;
+  feature)
+    feature test
+    ;;
+  tag)
+    tag test
+    ;;
+  * )
+    echo "agent42 - Invalid function: "$1
+    ;;
+esac
