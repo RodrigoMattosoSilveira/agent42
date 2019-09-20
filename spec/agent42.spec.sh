@@ -29,7 +29,7 @@ test $? -eq 1 && echo "✅ pass tag "$VERSION "does not match CHANGELOG" || echo
 PULL_REQUEST=42
 VERSION=0.0.1
 ./bin/agent42 tag $PULL_REQUEST $VERSION  > /dev/null
-test $? -eq 2 && echo "✅ pass tag v"$VERSION "already exists for version" || echo "🚫 fail tag v"$VERSION "does not exists for version"
+test $? -eq 2 && echo "✅ pass tag v"$VERSION "already exists" || echo "🚫 fail tag v"$VERSION "does not exists for version"
 
 rm -rf CHANGELOG.md.sav
 mv CHANGELOG.md CHANGELOG.md.sav
